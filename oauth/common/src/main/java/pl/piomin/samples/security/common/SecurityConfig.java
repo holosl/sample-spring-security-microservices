@@ -1,4 +1,4 @@
-package pl.piomin.samples.security.callme.config;
+package pl.piomin.samples.security.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
