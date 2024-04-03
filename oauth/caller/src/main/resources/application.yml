@@ -5,7 +5,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8080/realms/demo/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost:8080/realms/c9realm/protocol/openid-connect/certs
 
 logging.level:
   org.springframework.cloud.gateway: DEBUG

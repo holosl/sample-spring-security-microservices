@@ -1,6 +1,6 @@
 {
   "id": "4f9e1112-f254-4f70-a92e-cbe3e8d98865",
-  "realm": "demo",
+  "realm": "c9realm",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -65,7 +65,7 @@
       },
       {
         "id": "554c4233-4d09-456b-a471-d6d86b9d1526",
-        "name": "default-roles-demo",
+        "name": "default-roles-c9realm",
         "description": "${role_default-roles}",
         "composite": true,
         "composites": {
@@ -415,7 +415,7 @@
   "groups": [],
   "defaultRole": {
     "id": "554c4233-4d09-456b-a471-d6d86b9d1526",
-    "name": "default-roles-demo",
+    "name": "default-roles-c9realm",
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
@@ -475,7 +475,7 @@
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
-        "default-roles-demo"
+        "default-roles-c9realm"
       ],
       "notBefore": 0,
       "groups": []
@@ -492,7 +492,7 @@
         }
       ],
       "realmRoles": [
-        "default-roles-demo",
+        "default-roles-c9realm",
         "USER"
       ]
     }
@@ -522,13 +522,13 @@
       "clientId": "account",
       "name": "${client_account}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/demo/account/",
+      "baseUrl": "/realms/c9realm/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/demo/account/*"
+        "/realms/c9realm/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -566,13 +566,13 @@
       "clientId": "account-console",
       "name": "${client_account-console}",
       "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/demo/account/",
+      "baseUrl": "/realms/c9realm/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/realms/demo/account/*"
+        "/realms/c9realm/account/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -735,13 +735,13 @@
       "clientId": "security-admin-console",
       "name": "${client_security-admin-console}",
       "rootUrl": "${authAdminUrl}",
-      "baseUrl": "/admin/demo/console/",
+      "baseUrl": "/admin/c9realm/console/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "/admin/demo/console/*"
+        "/admin/c9realm/console/*"
       ],
       "webOrigins": [
         "+"

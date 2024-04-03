@@ -44,9 +44,9 @@ public class GatewayApplicationTests {
     @DynamicPropertySource
     static void registerResourceServerIssuerProperty(DynamicPropertyRegistry registry) {
         registry.add("spring.security.oauth2.client.provider.keycloak.issuer-uri",
-                () -> keycloak.getAuthServerUrl() + "/realms/demo");
+                () -> keycloak.getAuthServerUrl() + "/realms/c9realm");
         registry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
-                () -> keycloak.getAuthServerUrl() + "/realms/demo/protocol/openid-connect/certs");
+                () -> keycloak.getAuthServerUrl() + "/realms/c9realm/protocol/openid-connect/certs");
         registry.add("spring.cloud.gateway.routes[0].uri",
                 () -> "http://localhost:8060");
         registry.add("spring.cloud.gateway.routes[0].id", () -> "callme-service");
@@ -70,7 +70,7 @@ public class GatewayApplicationTests {
     @Test
     @Order(2)
     void shouldObtainAccessToken() throws URISyntaxException {
-        URI authorizationURI = new URIBuilder(keycloak.getAuthServerUrl() + "/realms/demo/protocol/openid-connect/token").build();
+        URI authorizationURI = new URIBuilder(keycloak.getAuthServerUrl() + "/realms/c9realm/protocol/openid-connect/token").build();
         WebClient webclient = WebClient.builder().build();
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.put("grant_type", Collections.singletonList("password"));
