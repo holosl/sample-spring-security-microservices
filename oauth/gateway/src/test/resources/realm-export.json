@@ -482,22 +482,6 @@
       "notBefore": 0,
       "groups": []
     }, {
-      "username": "spring",
-      "email": "piotr.minkowski@gmail.com",
-      "firstName": "Piotr",
-      "lastName": "Minkowski",
-      "enabled": true,
-      "credentials": [
-        {
-          "type": "password",
-          "value": "Spring_123"
-        }
-      ],
-      "realmRoles": [
-        "default-roles-c9realm",
-        "USER"
-      ]
-    }, {
       "username": "c9-holosl",
       "email": "",
       "firstName": "",
