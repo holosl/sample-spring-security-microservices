@@ -12,10 +12,10 @@ spring:
           keycloak:
             issuer-uri: http://localhost:8080/realms/c9realm
         registration:
-          spring-with-test-scope:
+          c9-client:
             provider: keycloak
-            client-id: spring-with-test-scope
-            client-secret: IWLSnakHG8aNTWNaWuSj0a11UY4lzxd9
+            client-id: c9-client
+            client-secret: rEAjbk8keRpI5l6l1fRGX9ANGWJ0klMQ
             authorization-grant-type: authorization_code
             scope: openid
 #          keycloak-without-test-scope:

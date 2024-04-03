@@ -411,7 +411,7 @@
           "attributes": {}
         }
       ],
-      "spring-with-test-scope": []
+      "c9-client": []
     }
   },
   "groups": [],
@@ -469,11 +469,11 @@
     {
       "id": "f08e96f4-c42f-45ff-8dac-5833939caefd",
       "createdTimestamp": 1708966689642,
-      "username": "service-account-spring-with-test-scope",
+      "username": "service-account-c9-client",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
-      "serviceAccountClientId": "spring-with-test-scope",
+      "serviceAccountClientId": "c9-client",
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
@@ -805,7 +805,7 @@
     },
     {
       "id": "a0e8542b-2820-426a-89ba-73866c17eabb",
-      "clientId": "spring-with-test-scope",
+      "clientId": "c9-client",
       "name": "",
       "description": "",
       "rootUrl": "",
