@@ -15,9 +15,9 @@ spring:
           c9-client:
             provider: keycloak
             client-id: c9-client
-            client-secret: rEAjbk8keRpI5l6l1fRGX9ANGWJ0klMQ
-            authorization-grant-type: authorization_code
             scope: openid
+            #client-secret: rEAjbk8keRpI5l6l1fRGX9ANGWJ0klMQ
+            #authorization-grant-type: authorization_code
 #          keycloak-without-test-scope:
 #            provider: keycloak
 #            client-id: spring-without-test-scope
