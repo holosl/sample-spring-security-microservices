@@ -1,19 +1,7 @@
 spring:
   application:
     name: gateway
-  cloud:
-    gateway:
-      default-filters:
-        - TokenRelay=
-      routes:
-        - id: callme-service
-          uri: http://localhost:8040
-          predicates:
-            - Path=/callme/**
-        - id: caller-service
-          uri: http://localhost:8020
-          predicates:
-            - Path=/caller/**
+
   security:
     oauth2:
       resourceserver:
