@@ -497,6 +497,22 @@
         "default-roles-c9realm",
         "USER"
       ]
+    }, {
+      "username": "c9-holosl",
+      "email": "",
+      "firstName": "",
+      "lastName": "",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "pass"
+        }
+      ],
+      "realmRoles": [
+        "default-roles-c9realm",
+        "USER"
+      ]
     }
   ],
   "scopeMappings": [

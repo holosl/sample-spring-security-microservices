@@ -75,8 +75,8 @@ public class GatewayApplicationTests {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.put("grant_type", Collections.singletonList("password"));
         formData.put("client_id", Collections.singletonList("spring-with-test-scope"));
-        formData.put("username", Collections.singletonList("spring"));
-        formData.put("password", Collections.singletonList("Spring_123"));
+        formData.put("username", Collections.singletonList("c9-holosl"));
+        formData.put("password", Collections.singletonList("pass"));
 
         String result = webclient.post()
                 .uri(authorizationURI)
