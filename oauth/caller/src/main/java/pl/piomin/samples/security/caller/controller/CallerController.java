@@ -19,7 +19,7 @@ public class CallerController {
         this.webClient = webClient;
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_TEST')")
+    @PreAuthorize("hasAuthority('c9-test-scope')")
     @GetMapping("/ping")
     public String ping() {
         SecurityContext context = SecurityContextHolder.getContext();
