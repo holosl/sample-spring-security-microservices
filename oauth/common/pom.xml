@@ -5,22 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>pl.piomin.services</groupId>
-        <artifactId>sample-spring-security-microservices</artifactId>
+        <artifactId>oauth</artifactId>
         <version>1.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>oauth</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>common</artifactId>
 
     <properties>
-        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <modules>
-        <module>callme</module>
-        <module>gateway</module>
-        <module>caller</module>
-        <module>common</module>
-    </modules>
 
 </project>

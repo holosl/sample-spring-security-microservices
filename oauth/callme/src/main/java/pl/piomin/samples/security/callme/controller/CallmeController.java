@@ -7,12 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.piomin.samples.security.common.Scope;
 
 @RestController
 @RequestMapping("/callme")
 public class CallmeController {
 
-    @PreAuthorize("hasAuthority('c9-test-scope')")
+    @PreAuthorize("hasAuthority('" + Scope.c9 + "')")
     @GetMapping("/ping")
     public String ping() {
         SecurityContext context = SecurityContextHolder.getContext();
