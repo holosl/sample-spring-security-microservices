@@ -896,6 +896,7 @@
         "web-origins",
         "acr",
         "TEST",
+        "c9-test-scope",
         "profile",
         "roles",
         "email"
@@ -1305,6 +1306,18 @@
       }
     },
     {
+      "id": "8af98ec0-24e0-487c-a541-cedca7211070",
+      "name": "c9-test-scope",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      }
+    },
+    {
       "id": "1869a902-489a-4ce2-a729-f639b636c651",
       "name": "address",
       "description": "OpenID Connect built-in scope: address",
@@ -1467,6 +1480,7 @@
     "roles",
     "web-origins",
     "acr",
+    "c9-test-scope",
     "TEST"
   ],
   "defaultOptionalClientScopes": [
