@@ -52,7 +52,9 @@ public class GatewayApplicationTests {
         registry.add("spring.security.oauth2.client.provider.keycloak.issuer-uri",
                 () -> String.format("%s/realms/%s", keycloak.getAuthServerUrl(), realm));
         registry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
-                () -> String.format("%s/realms/%s/protocol/openid-connect/certs",keycloak.getAuthServerUrl(), realm));
+                () -> String.format("%s/realms/%s/protocol/openid-connect/certs", keycloak.getAuthServerUrl(), realm));
+
+        // set up routing so that the callme-service calls are forwarded to the mock controller
         registry.add("spring.cloud.gateway.routes[0].uri",
                 () -> "http://localhost:8060");
         registry.add("spring.cloud.gateway.routes[0].id", () -> "callme-service");
@@ -76,7 +78,11 @@ public class GatewayApplicationTests {
     @Test
     @Order(2)
     void shouldObtainAccessToken() throws URISyntaxException {
-        URI authorizationURI = new URIBuilder(keycloak.getAuthServerUrl() + "/realms/c9realm/protocol/openid-connect/token").build();
+        URI authorizationURI = new URIBuilder(
+                String.format("%s/realms/%s/protocol/openid-connect/token",
+                        keycloak.getAuthServerUrl(), realm)
+        ).build();
+
         WebClient webclient = WebClient.builder().build();
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.put("grant_type", Collections.singletonList("password"));
@@ -101,10 +107,10 @@ public class GatewayApplicationTests {
     @Test
     @Order(3)
     void shouldReturnToken() {
-        webTestClient.get().uri("/callme/ping")
+        webTestClient.get().uri(CallmeControllerMock.pingPath)
                 .header("Authorization", "Bearer " + accessToken)
                 .exchange()
                 .expectStatus().is2xxSuccessful()
-                .expectBody(String.class).isEqualTo("Hello!");
+                .expectBody(String.class).isEqualTo(CallmeControllerMock.pingResponse);
     }
 }
