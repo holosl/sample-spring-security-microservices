@@ -33,20 +33,26 @@ public class GatewayApplicationTests {
 
     static String accessToken;
 
+    static final String realmConfigPath = "realm-export.json";
+    // the following values should be in the json indicated byrealmConfigPath
+    static final String clientId = "c9-client";
+    static final String username = "c9-holosl";
+    static final String password = "pass";
+    static final String realm = "c9realm";
     @Autowired
     WebTestClient webTestClient;
 
     @Container
     static KeycloakContainer keycloak = new KeycloakContainer()
-            .withRealmImportFile("realm-export.json")
+            .withRealmImportFile(realmConfigPath)
             .withExposedPorts(8080);
 
     @DynamicPropertySource
     static void registerResourceServerIssuerProperty(DynamicPropertyRegistry registry) {
         registry.add("spring.security.oauth2.client.provider.keycloak.issuer-uri",
-                () -> keycloak.getAuthServerUrl() + "/realms/c9realm");
+                () -> String.format("%s/realms/%s", keycloak.getAuthServerUrl(), realm));
         registry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
-                () -> keycloak.getAuthServerUrl() + "/realms/c9realm/protocol/openid-connect/certs");
+                () -> String.format("%s/realms/%s/protocol/openid-connect/certs",keycloak.getAuthServerUrl(), realm));
         registry.add("spring.cloud.gateway.routes[0].uri",
                 () -> "http://localhost:8060");
         registry.add("spring.cloud.gateway.routes[0].id", () -> "callme-service");
@@ -74,9 +80,9 @@ public class GatewayApplicationTests {
         WebClient webclient = WebClient.builder().build();
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.put("grant_type", Collections.singletonList("password"));
-        formData.put("client_id", Collections.singletonList("c9-client"));
-        formData.put("username", Collections.singletonList("c9-holosl"));
-        formData.put("password", Collections.singletonList("pass"));
+        formData.put("client_id", Collections.singletonList(clientId));
+        formData.put("username", Collections.singletonList(username));
+        formData.put("password", Collections.singletonList(password));
 
         String result = webclient.post()
                 .uri(authorizationURI)
