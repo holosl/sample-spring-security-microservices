@@ -20,4 +20,9 @@ public class CallmeController {
         Authentication authentication = context.getAuthentication();
         return "Scopes: " + authentication.getAuthorities();
     }
+
+    @GetMapping("/pong")
+    public String pong() {
+        return "unprotected";
+    }
 }
