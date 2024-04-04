@@ -9,9 +9,14 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -30,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GatewayApplicationTests {
-
     static String accessToken;
 
     static final String realmConfigPath = "realm-export.json";
@@ -54,11 +58,6 @@ public class GatewayApplicationTests {
         registry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
                 () -> String.format("%s/realms/%s/protocol/openid-connect/certs", keycloak.getAuthServerUrl(), realm));
 
-        // set up routing so that the callme-service calls are forwarded to the mock controller
-        registry.add("spring.cloud.gateway.routes[0].uri",
-                () -> "http://localhost:8060");
-        registry.add("spring.cloud.gateway.routes[0].id", () -> "callme-service");
-        registry.add("spring.cloud.gateway.routes[0].predicates[0]", () -> "Path=/callme/**");
     }
 
     @Test
@@ -112,5 +111,14 @@ public class GatewayApplicationTests {
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody(String.class).isEqualTo(CallmeControllerMock.pingResponse);
+    }
+
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        public RouteLocator myRoutes(RouteLocatorBuilder builder) {
+            /** no routes needed, we have {@link CallmeControllerMock} */
+            return builder.routes().build();
+        }
     }
 }
