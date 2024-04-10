@@ -35,12 +35,6 @@ public class CallMeControllerTests {
 
     @Test
     void whenHavingScopeThenOk() throws Exception {
-        Jwt tokenWithClaim = Jwt.withTokenValue("token")
-                .header("alg", "none")
-                .claim("sub", "user")
-                .claim("scope", "read")
-                .claim("scope", Scope.c9)
-                .build();
         this.mockMvc.perform(get("/callme/ping").with(jwt().authorities(List.of(new SimpleGrantedAuthority(Scope.c9))))).andExpect(status().isOk());
     }
 }
