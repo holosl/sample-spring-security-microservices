@@ -9,15 +9,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -37,17 +32,29 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ActiveProfiles("test")
 public class GatewayApplicationTests {
+    // configuration of the keycloak server
+    static final String realmConfigPath = "realm-export.json";
+
+    // the following values should be in the json indicated byrealmConfigPath
+    // name of the client application that asks for authorization
+    static final String applicationClientId = "c9-client";
+
+    // realm of the authenticating user
+    static final String realm = "c9realm";
+
+    // credentials of the authenticating user
+    // these are often sent to oauth authorization server from browser, where the user is redirected and
+    // asked to input the credentials
+    static final String username = "c9-user-1-name";
+    static final String password = "c9-user-1-pass";
+
+    // save here the token obtained in one of the test cases
     static String accessToken;
 
-    static final String realmConfigPath = "realm-export.json";
-    // the following values should be in the json indicated byrealmConfigPath
-    static final String clientId = "c9-client";
-    static final String username = "c9-holosl";
-    static final String password = "pass";
-    static final String realm = "c9realm";
     @Autowired
     WebTestClient webTestClient;
 
+    // start the oauth authorization server with the realm and the test user preconfigured
     @Container
     static KeycloakContainer keycloak = new KeycloakContainer()
             .withRealmImportFile(realmConfigPath)
@@ -65,7 +72,6 @@ public class GatewayApplicationTests {
     @Test
     @Order(1)
     void shouldStart() {
-
     }
 
     @Test
@@ -87,7 +93,7 @@ public class GatewayApplicationTests {
         WebClient webclient = WebClient.builder().build();
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.put("grant_type", Collections.singletonList("password"));
-        formData.put("client_id", Collections.singletonList(clientId));
+        formData.put("client_id", Collections.singletonList(applicationClientId));
         formData.put("username", Collections.singletonList(username));
         formData.put("password", Collections.singletonList(password));
 
@@ -107,7 +113,7 @@ public class GatewayApplicationTests {
 
     @Test
     @Order(3)
-    void shouldReturnToken() {
+    void shouldGetAccessWhenHavingToken() {
         webTestClient.get().uri(CallmeControllerMock.pingPath)
                 .header("Authorization", "Bearer " + accessToken)
                 .exchange()
@@ -115,12 +121,12 @@ public class GatewayApplicationTests {
                 .expectBody(String.class).isEqualTo(CallmeControllerMock.pingResponse);
     }
 
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public RouteLocator myRoutes(RouteLocatorBuilder builder) {
-            /** no routes needed, we have {@link CallmeControllerMock} */
-            return builder.routes().build();
-        }
+    @Test
+    @Order(3)
+    void shouldGetUnautorizedWhenHavingWrongToken() {
+        webTestClient.get().uri(CallmeControllerMock.pingPath)
+                .header("Authorization", "Bearer wrongToken")
+                .exchange()
+                .expectStatus().isUnauthorized();
     }
 }

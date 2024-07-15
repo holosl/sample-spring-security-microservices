@@ -491,7 +491,7 @@
       "notBefore": 0,
       "groups": []
     }, {
-      "username": "c9-holosl",
+      "username": "c9-user-1-name",
       "email": "",
       "firstName": "",
       "lastName": "",
@@ -499,7 +499,7 @@
       "credentials": [
         {
           "type": "password",
-          "value": "pass"
+          "value": "c9-user-1-pass"
         }
       ],
       "realmRoles": [
